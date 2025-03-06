@@ -1,0 +1,35 @@
+.posting {
+  border-radius: 15px;
+  background: #fff;
+  width: 1326px;
+  height: 793px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.post-headings {
+  border-bottom: 1px solid #a3a3a3;
+  /*부모 input css가 마진 처리되어있어서.. 없애줘야함*/
+  margin: 0px 0px 0px 0px;
+  width: 1205px;
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 900;
+  line-height: normal;
+  margin-top: 60px;
+}
+
+.post-contexts {
+  border-bottom: none;
+  margin: 0px 0px 0px 0px;
+  margin-top: 10px;
+  width: 1205px;
+  height: 600px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+  border: none;
+  resize: none;
+}

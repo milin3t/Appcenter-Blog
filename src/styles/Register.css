@@ -1,0 +1,172 @@
+/* src/styles/Register.css */
+
+/* 회원가입 박스 */
+.register-box {
+  width: 466px;
+  height: 793px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 내부 요소 가운데 정렬 */
+  justify-content: center; /* 내부 요소 세로 정렬 */
+}
+
+/* 회원가입 제목 */
+.register-title {
+  font-size: 38px;
+  font-weight: bold;
+  margin-bottom: 140px;
+  text-align: center;
+}
+
+/* 입력 필드 */
+.register-input {
+  width: 378px;
+  padding: 10px;
+  margin: 10px 40px;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid #000;
+  font-size: 16px;
+  outline: none;
+  background: transparent;
+  text-align: left;
+}
+
+/* 버튼 스타일 */
+.register-button {
+  width: 378px;
+  height: 48px;
+  margin-top: 140px;
+  margin-left: 46px;
+  background: #946038;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.register-button:hover {
+  background: #7a4d2a;
+}
+
+.cancel-button {
+  width: 378px;
+  height: 48px;
+  margin-top: 20px;
+  margin-left: 46px;
+  background: gray;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.cancel-button:hover {
+  background: darkgray;
+}
+.register-success-box {
+  width: 466px;
+  height: 500px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 회원가입 성공 메시지 */
+.register-success-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.register-success-message {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* 로그인 이동 버튼 */
+.login-button {
+  width: 378px;
+  height: 48px;
+  margin-top: 40px;
+  background: #946038;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.login-button:hover {
+  background: #7a4d2a;
+}
+
+.register-success-box {
+  width: 466px;
+  height: 500px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* 회원가입 성공 메시지 */
+.register-success-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.register-success-message {
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* 로그인 이동 버튼 */
+.login-button {
+  width: 378px;
+  height: 48px;
+  margin-top: 40px;
+  background: #946038;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.login-button:hover {
+  background: #7a4d2a;
+}
