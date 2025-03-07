@@ -4,7 +4,7 @@ import RegisterForm from "../components/RegisterForm";
 import RegisterSuccess from "../components/RegisterSuccess";
 
 const Login = ({ onLogin }) => {
-  const [isRegistering, setIsRegistering] = useState(false); // signupSuccess -> isRegistering
+  const [isRegistering, setIsRegistering] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
 
   if (signupSuccess) {
@@ -12,7 +12,7 @@ const Login = ({ onLogin }) => {
       <RegisterSuccess
         onGoToLogin={() => {
           setSignupSuccess(false);
-          setIsRegistering(false); // 회원가입 완료 후 로그인 화면으로 이동
+          setIsRegistering(false);
         }}
       />
     );
@@ -21,7 +21,10 @@ const Login = ({ onLogin }) => {
   return isRegistering ? (
     <RegisterForm onSignupSuccess={() => setSignupSuccess(true)} />
   ) : (
-    <LoginForm onLogin={onLogin} />
+    <LoginForm
+      onLogin={onLogin}
+      onNavigateToSignup={() => setIsRegistering(true)}
+    />
   );
 };
 

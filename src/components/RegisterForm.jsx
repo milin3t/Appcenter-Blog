@@ -4,7 +4,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/Register.css";
 
-const RegisterForm = () => {
+const RegisterForm = ({ onSignupSuccess }) => {
   const [form, setForm] = useState({
     username: "",
     password: "",
@@ -57,17 +57,21 @@ const RegisterForm = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("/api/members/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          loginId: form.username,
+          password: form.password,
+          nickname: form.nickname,
+        }),
       });
 
       if (!response.ok) {
         throw new Error("회원가입에 실패했습니다.");
       }
 
-      navigate("/register-success");
+      onSignupSuccess();
     } catch (error) {
       toast.error(error.message, { position: "top-center", autoClose: 3000 });
     }

@@ -5,12 +5,11 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/Login.css";
 
-const LoginForm = ({ onLogin }) => {
+const LoginForm = ({ onLogin, onNavigateToSignup }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  // API 구현 부분
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -18,7 +17,7 @@ const LoginForm = ({ onLogin }) => {
       const response = await fetch("/api/members/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ loginId: username, password }),
       });
 
       if (!response.ok) {
@@ -26,7 +25,7 @@ const LoginForm = ({ onLogin }) => {
       }
 
       const data = await response.json();
-      onLogin(username); // 토큰 대신 username을 전달
+      onLogin(data.loginId); // username으로 전달받음
       toast.success("로그인 성공!", {
         position: "top-center",
         autoClose: 3000,
@@ -67,7 +66,7 @@ const LoginForm = ({ onLogin }) => {
         <p className="signup-prompt">
           계정이 없으신가요?
           <br />
-          <span className="signup-link" onClick={() => navigate("/signup")}>
+          <span className="signup-link" onClick={onNavigateToSignup}>
             회원 가입하기
           </span>
         </p>
@@ -79,6 +78,7 @@ const LoginForm = ({ onLogin }) => {
 
 LoginForm.propTypes = {
   onLogin: PropTypes.func.isRequired,
+  onNavigateToSignup: PropTypes.func.isRequired,
 };
 
 export default LoginForm;
