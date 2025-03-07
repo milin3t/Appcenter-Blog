@@ -6,7 +6,7 @@
   height: 95vh;
   padding: 20px;
   background-color: #946038;
-  gap: 40px; /* 좌우 간격 조정 */
+  gap: 40px;
 }
 
 /* 왼쪽 사이드바 영역 */
@@ -14,7 +14,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  width: 320px; /* 고정 너비 설정 */
+  width: 320px;
   align-items: center;
 }
 
@@ -25,41 +25,83 @@
   width: 100%;
   height: 332px;
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.profile-image-placeholder {
+  width: 100px;
+  height: 100px;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+  margin-bottom: 15px;
+}
+
+.nickname {
   font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.profile-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.logout-btn,
+.edit-btn {
+  cursor: pointer;
+  color: gray;
+  text-decoration: underline;
+  font-size: 14px;
+}
+
+.logout-btn:hover,
+.edit-btn:hover {
+  color: #7a4d2a;
 }
 
 /* 헤더 박스 */
 .header-box {
   display: flex;
-  flex-direction: row;
   justify-content: center;
+  align-items: center;
   gap: 250px;
   width: 100%;
   height: 60px;
-  align-items: center;
   border-radius: 15px;
   background: #fff;
 }
 
 /* 사이드바 박스 */
 .sidebar-box {
-  width: 300px;
+  width: 100%;
   height: 434px;
-  flex-shrink: 0;
   border-radius: 15px;
   background: #fff;
-  overflow-y: auto; /* 내부 스크롤 적용 */
-  padding: 10px;
+  overflow-y: auto;
   position: relative;
+  padding-top: 0;
+  box-sizing: border-box;
 }
 
 /* 포스트 박스 */
 .post-box {
   width: 100%;
   height: 715px;
-  flex-shrink: 0;
   border-radius: 15px;
   background: #fff;
+  box-sizing: border-box;
 }
 
 .header-button {
@@ -73,4 +115,32 @@
 
 .header-button:hover {
   color: black;
+}
+
+.no-posts-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  gap: 20px;
+  font-size: 18px;
+  color: #888;
+}
+
+.new-post-btn {
+  width: 184px;
+  height: 41px;
+  background: #946038;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.new-post-btn:hover {
+  background: #7a4d2a;
 }

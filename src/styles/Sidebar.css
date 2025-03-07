@@ -2,19 +2,13 @@
 .sidebar-title {
   font-size: 18px;
   font-weight: bold;
-  margin: 0 0 10px 10px;
   position: sticky;
   top: 0;
   background: #fff;
-  padding: 10px;
+  padding: 20px;
   z-index: 10;
-}
-
-/* 사이드바 제목 */
-.sidebar-title {
-  font-size: 18px;
-  font-weight: bold;
-  margin: 15px 10px;
+  /* 추가된 부분 */
+  margin: 0;
 }
 
 /* 게시글 리스트 */

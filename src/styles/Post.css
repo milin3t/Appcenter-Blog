@@ -6,30 +6,85 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .post-headings {
   border-bottom: 1px solid #a3a3a3;
-  /*부모 input css가 마진 처리되어있어서.. 없애줘야함*/
-  margin: 0px 0px 0px 0px;
+  margin: 0;
   width: 1205px;
   font-size: 48px;
-  font-style: normal;
   font-weight: 900;
-  line-height: normal;
   margin-top: 60px;
+  border: none;
+  border-bottom: 1px solid #a3a3a3;
+  outline: none;
 }
 
 .post-contexts {
-  border-bottom: none;
-  margin: 0px 0px 0px 0px;
   margin-top: 10px;
   width: 1205px;
   height: 600px;
   font-size: 18px;
-  font-style: normal;
   font-weight: 300;
-  line-height: normal;
   border: none;
   resize: none;
+  outline: none;
+}
+
+/* --- 추가된 부분 시작 --- */
+
+/* 하단 영역 (체크박스와 버튼을 감싸는 영역) */
+.post-bottom-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 1205px;
+  position: absolute;
+  bottom: 30px;
+}
+
+/* 대표 글 체크박스 스타일 */
+.main-post-checkbox {
+  font-size: 16px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 게시, 취소 버튼 영역 */
+.post-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.post-button {
+  width: 110px;
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 게시 버튼 */
+.submit-btn {
+  background: #946038;
+  color: #fff;
+}
+
+.submit-btn:hover {
+  background: #7a4d2a;
+}
+
+/* 취소 버튼 */
+.cancel-btn {
+  background: gray;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background: darkgray;
 }
