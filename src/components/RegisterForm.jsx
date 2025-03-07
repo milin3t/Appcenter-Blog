@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import "../styles/Register.css";
+import axios from "axios";
 
-const RegisterForm = ({ onSignupSuccess }) => {
+const RegisterForm = () => {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     username: "",
     password: "",
     confirmPassword: "",
     nickname: "",
   });
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -21,7 +21,7 @@ const RegisterForm = ({ onSignupSuccess }) => {
     const { username, password, confirmPassword, nickname } = form;
 
     if (!username || !password || !confirmPassword || !nickname) {
-      toast.error("모든 필드를 입력해주세요.", {
+      toast.error("모든 정보를 입력해주세요.", {
         position: "top-center",
         autoClose: 3000,
       });
@@ -41,10 +41,10 @@ const RegisterForm = ({ onSignupSuccess }) => {
       !/[A-Za-z]/.test(password) ||
       !/[0-9]/.test(password)
     ) {
-      toast.error(
-        "비밀번호는 최소 8자 이상이며, 영문과 숫자를 포함해야 합니다.",
-        { position: "top-center", autoClose: 3000 }
-      );
+      toast.error("비밀번호는 최소 8자, 영문, 숫자를 포함해야 합니다.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
       return false;
     }
 
@@ -57,23 +57,18 @@ const RegisterForm = ({ onSignupSuccess }) => {
     if (!validateForm()) return;
 
     try {
-      const response = await fetch("/api/members/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          loginId: form.username,
-          password: form.password,
-          nickname: form.nickname,
-        }),
+      const { data } = await axios.post("/api/members/signup", {
+        loginId: form.username,
+        password: form.password,
+        nickname: form.nickname,
       });
 
-      if (!response.ok) {
-        throw new Error("회원가입에 실패했습니다.");
-      }
-
-      onSignupSuccess();
-    } catch (error) {
-      toast.error(error.message, { position: "top-center", autoClose: 3000 });
+      navigate("/register-success");
+    } catch (err) {
+      toast.error("회원가입 실패했습니다.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -87,7 +82,6 @@ const RegisterForm = ({ onSignupSuccess }) => {
             name="username"
             placeholder="아이디를 입력해주세요"
             className="register-input"
-            value={form.username}
             onChange={handleChange}
           />
           <input
@@ -95,7 +89,6 @@ const RegisterForm = ({ onSignupSuccess }) => {
             name="password"
             placeholder="비밀번호를 입력해주세요"
             className="register-input"
-            value={form.password}
             onChange={handleChange}
           />
           <input
@@ -103,7 +96,6 @@ const RegisterForm = ({ onSignupSuccess }) => {
             name="confirmPassword"
             placeholder="비밀번호를 다시 입력해주세요"
             className="register-input"
-            value={form.confirmPassword}
             onChange={handleChange}
           />
           <input
@@ -111,7 +103,6 @@ const RegisterForm = ({ onSignupSuccess }) => {
             name="nickname"
             placeholder="닉네임을 입력해주세요"
             className="register-input"
-            value={form.nickname}
             onChange={handleChange}
           />
           <button type="submit" className="register-button">

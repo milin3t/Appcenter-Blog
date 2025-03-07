@@ -1,29 +1,42 @@
-// src/pages/MainPage.jsx
 import React, { useState, useEffect } from "react";
 import "../styles/Main.css";
 import Sidebar from "../components/Sidebar";
 import PostView from "../components/PostView";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const MainPage = ({ userId, nickname }) => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
 
+  // 유저의 게시글 목록 가져오기
   useEffect(() => {
-    fetch(`/api/contents/category?userId=${userId}`)
-      .then((res) => res.json())
-      .then((data) => setPosts(data.response))
-      .catch((err) => console.error(err));
+    const fetchUserPosts = async () => {
+      try {
+        const response = await axios.get(
+          `/api/contents/category?userId=${userId}`
+        );
+        setPosts(response.data.response || []);
+      } catch (error) {
+        console.error("게시글 목록을 불러오는 데 실패했습니다.", error);
+      }
+    };
+
+    fetchUserPosts();
   }, [userId]);
 
-  const handleSelectPost = (postId) => {
-    fetch(`/api/contents/${postId}`)
-      .then((res) => res.json())
-      .then((data) => setSelectedPost(data.response))
-      .catch((err) => console.error(err));
+  // 특정 게시글 조회
+  const handleSelectPost = async (postId) => {
+    try {
+      const response = await axios.get(`/api/contents/${postId}`);
+      setSelectedPost(response.data.response);
+    } catch (error) {
+      console.error("게시글을 불러오는 데 실패했습니다.", error);
+    }
   };
 
+  // 네비게이션 핸들러
   const handleLogout = () => navigate("/");
   const handleEditUser = () => navigate("/edit-user");
   const handleNewPost = () => navigate("/posting");
@@ -34,7 +47,9 @@ const MainPage = ({ userId, nickname }) => {
         <div className="profile-box">
           <div className="profile-info">
             <div className="profile-image-placeholder"></div>
-            <p className="nickname">{userId}님, 환영합니다.</p>
+            <p className="nickname">
+              {nickname ? `${nickname}님, 환영합니다.` : "null님, 환영합니다."}
+            </p>
           </div>
           <div className="profile-actions">
             <span className="logout-btn" onClick={handleLogout}>
@@ -45,14 +60,16 @@ const MainPage = ({ userId, nickname }) => {
             </span>
           </div>
         </div>
-        <Sidebar posts={posts} onSelectPost={setSelectedPost} />
+        <Sidebar posts={posts} onSelectPost={handleSelectPost} />
       </div>
 
       <div className="right-container">
         <div className="header-box">
           <button className="header-button">친구 목록</button>
           <button className="header-button">둘러보기</button>
-          <button className="header-button">글 작성</button>
+          <button className="header-button" onClick={handleNewPost}>
+            글 작성
+          </button>
         </div>
         <div className="post-box">
           {posts.length === 0 ? (

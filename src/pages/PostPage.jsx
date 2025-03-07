@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../styles/Post.css";
 
 const PostPage = ({ userId }) => {
@@ -13,22 +14,21 @@ const PostPage = ({ userId }) => {
   };
 
   const handlePost = async () => {
-    const response = await fetch(`/api/contents?userId=${userId}`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
+    try {
+      const response = await axios.post(`/api/contents?userId=${userId}`, {
         title,
         contents,
         is_main: isMain ? 1 : 0,
-      }),
-    });
+      });
 
-    if (response.ok) {
-      navigate("/main"); // 성공 시 메인 페이지로 이동
-    } else {
-      alert("게시 실패!");
+      if (response.status === 200) {
+        navigate("/main"); // 성공 시 메인 페이지로 이동
+      } else {
+        alert("게시 실패!");
+      }
+    } catch (error) {
+      console.error("게시글 등록 실패:", error);
+      alert("게시 실패! 다시 시도해주세요.");
     }
   };
 
@@ -51,15 +51,13 @@ const PostPage = ({ userId }) => {
       ></textarea>
 
       <div className="post-bottom-section">
-        <label className="main-post-checkbox">
-          <input
-            type="checkbox"
-            checked={isMain}
-            onChange={(e) => setIsMain(e.target.checked)}
-          />
-          대표 글로 설정하기
-        </label>
-
+        <input
+          className="main-post-checkbox"
+          type="checkbox"
+          checked={isMain}
+          onChange={(e) => setIsMain(e.target.checked)}
+        />
+        대표 글로 설정하기
         <div className="post-buttons">
           <button className="post-button submit-btn" onClick={handlePost}>
             게시

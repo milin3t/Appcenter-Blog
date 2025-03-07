@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import MainPage from "./pages/MainPage";
+import EditUser from "./pages/EditUser";
 import RegisterForm from "./components/RegisterForm";
 import RegisterSuccess from "./components/RegisterSuccess";
 import "./App.css";
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/register-success" element={<RegisterSuccess />} />
           <Route path="/main" element={<MainPage userId={userId} />} />
           <Route path="/posting" element={<PostPage />} />
+          <Route path="/edit-user" element={<EditUser />} />
         </Routes>
       </Router>
     </div>

@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/Login.css";
 
-const LoginForm = ({ onLogin, onNavigateToSignup }) => {
+const LoginForm = ({ onLogin }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -14,18 +15,12 @@ const LoginForm = ({ onLogin, onNavigateToSignup }) => {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/members/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ loginId: username, password }),
+      const { data } = await axios.post("/api/members/login", {
+        loginId: username,
+        password,
       });
 
-      if (!response.ok) {
-        throw new Error("존재하지 않는 계정입니다.");
-      }
-
-      const data = await response.json();
-      onLogin(data.loginId); // username으로 전달받음
+      onLogin(data.loginId);
       toast.success("로그인 성공!", {
         position: "top-center",
         autoClose: 3000,
@@ -35,7 +30,10 @@ const LoginForm = ({ onLogin, onNavigateToSignup }) => {
         navigate("/main");
       }, 500);
     } catch (err) {
-      toast.error(err.message, { position: "top-center", autoClose: 3000 });
+      toast.error("존재하지 않는 계정입니다.", {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -66,7 +64,7 @@ const LoginForm = ({ onLogin, onNavigateToSignup }) => {
         <p className="signup-prompt">
           계정이 없으신가요?
           <br />
-          <span className="signup-link" onClick={onNavigateToSignup}>
+          <span className="signup-link" onClick={() => navigate("/signup")}>
             회원 가입하기
           </span>
         </p>
@@ -74,11 +72,6 @@ const LoginForm = ({ onLogin, onNavigateToSignup }) => {
       <ToastContainer />
     </div>
   );
-};
-
-LoginForm.propTypes = {
-  onLogin: PropTypes.func.isRequired,
-  onNavigateToSignup: PropTypes.func.isRequired,
 };
 
 export default LoginForm;

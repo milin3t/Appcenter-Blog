@@ -1,3 +1,4 @@
+/* 게시글 작성 화면 */
 .posting {
   border-radius: 15px;
   background: #fff;
@@ -9,6 +10,7 @@
   position: relative;
 }
 
+/* 제목 입력 */
 .post-headings {
   border-bottom: 1px solid #a3a3a3;
   margin: 0;
@@ -21,6 +23,7 @@
   outline: none;
 }
 
+/* 내용 입력 */
 .post-contexts {
   margin-top: 10px;
   width: 1205px;
@@ -32,13 +35,8 @@
   outline: none;
 }
 
-/* --- 추가된 부분 시작 --- */
-
 /* 하단 영역 (체크박스와 버튼을 감싸는 영역) */
 .post-bottom-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   width: 1205px;
   position: absolute;
   bottom: 30px;
@@ -46,17 +44,23 @@
 
 /* 대표 글 체크박스 스타일 */
 .main-post-checkbox {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
   font-size: 16px;
-  color: #888;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  border-radius: 5px;
+  background: #d9d9d9;
+  gap: 20px;
 }
 
 /* 게시, 취소 버튼 영역 */
 .post-buttons {
   display: flex;
+  flex-direction: column;
   gap: 15px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 
 .post-button {
