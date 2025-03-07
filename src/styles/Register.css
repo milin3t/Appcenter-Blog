@@ -103,42 +103,6 @@
   margin-bottom: 40px;
 }
 
-/* 로그인 이동 버튼 */
-.login-button {
-  width: 378px;
-  height: 48px;
-  margin-top: 40px;
-  background: #946038;
-  color: #fff;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  text-align: center;
-}
-
-.login-button:hover {
-  background: #7a4d2a;
-}
-
-.register-success-box {
-  width: 466px;
-  height: 500px;
-  flex-shrink: 0;
-  border-radius: 15px;
-  background: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* 회원가입 성공 메시지 */
 .register-success-title {
   font-size: 28px;
   font-weight: bold;
@@ -152,8 +116,20 @@
   margin-bottom: 40px;
 }
 
-/* 로그인 이동 버튼 */
-.login-button {
+.register-success-box {
+  width: 466px;
+  height: 793px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 로그인 하러 가기 버튼 중앙 정렬 */
+.register-success-button {
   width: 378px;
   height: 48px;
   margin-top: 40px;
@@ -165,8 +141,11 @@
   border-radius: 15px;
   cursor: pointer;
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.login-button:hover {
+.register-success-button:hover {
   background: #7a4d2a;
 }
