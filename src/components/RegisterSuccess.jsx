@@ -10,7 +10,10 @@ const RegisterSuccess = () => {
       <div className="register-box">
         <h2 className="register-title">축하합니다!</h2>
         <p>신규 회원 가입이 완료되었습니다.</p>
-        <button className="register-button" onClick={() => navigate("/")}>
+        <button
+          className="register-success-button"
+          onClick={() => navigate("/")}
+        >
           로그인 하러 가기
         </button>
       </div>

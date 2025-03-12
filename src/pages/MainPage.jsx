@@ -40,6 +40,7 @@ const MainPage = ({ userId, nickname }) => {
   const handleLogout = () => navigate("/");
   const handleEditUser = () => navigate("/edit-user");
   const handleNewPost = () => navigate("/posting");
+  const handleToFeed = () => navigate("/feed");
 
   return (
     <div className="mainpage-container">
@@ -65,8 +66,12 @@ const MainPage = ({ userId, nickname }) => {
 
       <div className="right-container">
         <div className="header-box">
-          <button className="header-button">친구 목록</button>
-          <button className="header-button">둘러보기</button>
+          <button className="header-button" onClick={handleToFeed}>
+            친구 목록
+          </button>
+          <button className="header-button" onClick={handleToFeed}>
+            둘러보기
+          </button>
           <button className="header-button" onClick={handleNewPost}>
             글 작성
           </button>

@@ -16,7 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 25px;
 }
 
 /* 프로필 이미지 */
@@ -27,8 +27,8 @@
 }
 
 .profile-image-placeholder {
-  width: 120px;
-  height: 120px;
+  width: 180px;
+  height: 180px;
   background-color: #d9d9d9;
   border-radius: 50%;
   margin-bottom: 10px;
@@ -39,6 +39,12 @@
   font-weight: bold;
 }
 
+/* 닉네임이 null일 경우 스타일 */
+.nickname:empty::before {
+  content: "null";
+  color: gray;
+}
+
 .edit-profile-text {
   font-size: 14px;
   color: gray;
@@ -46,45 +52,27 @@
   cursor: pointer;
 }
 
-/* 사용자 정보 입력 */
+/* 사용자 정보 + 자기소개 좌우 정렬 */
+.user-info-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 90%;
+  gap: 20px;
+}
+
+/* 왼쪽 사용자 정보 */
 .user-info-container {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  width: 100%;
-  max-width: 700px;
+  margin-top: 20px;
+  gap: 50px;
+  width: 48%;
 }
 
-.user-input-box {
-  display: flex;
-  align-items: center;
-  background: #d9d9d9;
-  border-radius: 25px;
-  padding: 10px 20px;
-  width: 100%;
-  height: 50px;
-}
-
-.user-label {
-  font-size: 16px;
-  font-weight: bold;
-  white-space: nowrap;
-  margin-right: 10px;
-}
-
-.user-edit-input {
-  flex-grow: 1;
-  border: none;
-  background: none;
-  font-size: 16px;
-  color: #555;
-  outline: none;
-}
-
-/* 자기소개 */
+/* 오른쪽 자기소개 */
 .intro-section {
-  width: 100%;
-  max-width: 700px;
+  width: 48%;
 }
 
 .intro-label {
@@ -96,7 +84,7 @@
 
 .intro-textarea {
   width: 100%;
-  height: 120px;
+  height: 300px;
   border-radius: 15px;
   border: none;
   background: #d9d9d9;
@@ -107,6 +95,32 @@
   outline: none;
 }
 
+/* 입력 필드 */
+.user-input-box {
+  display: flex;
+  align-items: center;
+  background: #d9d9d9;
+  border-radius: 25px;
+  padding-left: 20px;
+  width: 100%;
+  height: 45px;
+}
+
+.user-label {
+  font-size: 16px;
+  font-weight: bold;
+  white-space: pre;
+}
+
+.user-edit-input {
+  border: none;
+  margin-bottom: 30px;
+  background: none;
+  font-size: 16px;
+  color: #555;
+  outline: none;
+}
+
 /* 버튼 */
 .edit-buttons {
   display: flex;
@@ -114,8 +128,8 @@
   margin-top: 20px;
 }
 
-.apply-button,
-.cancel-button {
+.edit-apply-button,
+.edit-cancel-button {
   width: 120px;
   height: 40px;
   border-radius: 10px;
@@ -125,20 +139,20 @@
   cursor: pointer;
 }
 
-.apply-button {
+.edit-apply-button {
   background: #946038;
   color: #fff;
 }
 
-.apply-button:hover {
+.edit-apply-button:hover {
   background: #7a4d2a;
 }
 
-.cancel-button {
+.edit-cancel-button {
   background: gray;
   color: #fff;
 }
 
-.cancel-button:hover {
+.edit-cancel-button:hover {
   background: darkgray;
 }

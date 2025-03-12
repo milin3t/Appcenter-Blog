@@ -5,6 +5,7 @@ import MainPage from "./pages/MainPage";
 import EditUser from "./pages/EditUser";
 import RegisterForm from "./components/RegisterForm";
 import RegisterSuccess from "./components/RegisterSuccess";
+import Feed from "./pages/Feed";
 import "./App.css";
 import PostPage from "./pages/PostPage";
 
@@ -25,6 +26,7 @@ const App = () => {
           <Route path="/main" element={<MainPage userId={userId} />} />
           <Route path="/posting" element={<PostPage />} />
           <Route path="/edit-user" element={<EditUser />} />
+          <Route path="/feed" element={<Feed />} />
         </Routes>
       </Router>
     </div>
