@@ -3,7 +3,8 @@ import "../styles/EditUser.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const EditUser = ({ userId }) => {
+const EditUser = ({ loginId }) => {
+  console.log(loginId);
   const navigate = useNavigate();
   const [form, setForm] = useState({
     nickname: "",
@@ -18,7 +19,7 @@ const EditUser = ({ userId }) => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/members/${userId}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/members/${loginId}`
         );
         setForm(response.data.response);
       } catch (error) {
@@ -27,7 +28,7 @@ const EditUser = ({ userId }) => {
     };
 
     fetchUserData();
-  }, [userId]);
+  }, [loginId]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,7 +37,7 @@ const EditUser = ({ userId }) => {
   const handleUpdate = async () => {
     try {
       await axios.put(
-        `${import.meta.env.VITE_API_BASE_URL}/api/members/${userId}`,
+        `${import.meta.env.VITE_API_BASE_URL}/api/members/${loginId}`,
         form
       );
       navigate("/main"); // 성공 시 메인 페이지로 이동

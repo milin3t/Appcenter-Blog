@@ -13,6 +13,9 @@ const RegisterForm = () => {
     nickname: "",
   });
 
+  const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -57,18 +60,23 @@ const RegisterForm = () => {
     if (!validateForm()) return;
 
     try {
-      const { data } = await axios.post("/api/members/signup", {
+      const response = await axios.post(`${API_BASE_URL}/api/members/signup`, {
         loginId: form.username,
         password: form.password,
         nickname: form.nickname,
       });
 
-      navigate("/register-success");
+      if (response.status === 201) {
+        toast.success("회원가입 성공!", {
+          position: "top-center",
+          autoClose: 3000,
+        });
+        setTimeout(() => navigate("/register-success"), 1000);
+      }
     } catch (err) {
-      toast.error("회원가입 실패했습니다.", {
-        position: "top-center",
-        autoClose: 3000,
-      });
+      const errorMessage =
+        err.response?.data?.message || "회원가입 실패했습니다.";
+      toast.error(errorMessage, { position: "top-center", autoClose: 3000 });
     }
   };
 
@@ -82,6 +90,7 @@ const RegisterForm = () => {
             name="username"
             placeholder="아이디를 입력해주세요"
             className="register-input"
+            value={form.username}
             onChange={handleChange}
           />
           <input
@@ -89,6 +98,7 @@ const RegisterForm = () => {
             name="password"
             placeholder="비밀번호를 입력해주세요"
             className="register-input"
+            value={form.password}
             onChange={handleChange}
           />
           <input
@@ -96,6 +106,7 @@ const RegisterForm = () => {
             name="confirmPassword"
             placeholder="비밀번호를 다시 입력해주세요"
             className="register-input"
+            value={form.confirmPassword}
             onChange={handleChange}
           />
           <input
@@ -103,6 +114,7 @@ const RegisterForm = () => {
             name="nickname"
             placeholder="닉네임을 입력해주세요"
             className="register-input"
+            value={form.nickname}
             onChange={handleChange}
           />
           <button type="submit" className="register-button">

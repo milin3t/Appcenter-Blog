@@ -10,10 +10,10 @@ import "./App.css";
 import PostPage from "./pages/PostPage";
 
 const App = () => {
-  const [userId, setUserId] = useState("");
+  const [loginId, setLoginId] = useState("");
 
   const handleLogin = (id) => {
-    setUserId(id);
+    setLoginId(id);
   };
 
   return (
@@ -23,7 +23,7 @@ const App = () => {
           <Route path="/" element={<Login onLogin={handleLogin} />} />
           <Route path="/signup" element={<RegisterForm />} />
           <Route path="/register-success" element={<RegisterSuccess />} />
-          <Route path="/main" element={<MainPage userId={userId} />} />
+          <Route path="/main" element={<MainPage loginId={loginId} />} />
           <Route path="/posting" element={<PostPage />} />
           <Route path="/edit-user" element={<EditUser />} />
           <Route path="/feed" element={<Feed />} />

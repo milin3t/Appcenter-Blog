@@ -5,7 +5,7 @@ import PostView from "../components/PostView";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const MainPage = ({ userId, nickname }) => {
+const MainPage = ({ loginId, nickname }) => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [posts, setPosts] = useState([]);
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const MainPage = ({ userId, nickname }) => {
         const response = await axios.get(
           `${
             import.meta.env.VITE_API_BASE_URL
-          }/api/contents/category?userId=${userId}`
+          }/api/contents/category?loginId=${loginId}`
         );
         setPosts(response.data.response || []);
       } catch (error) {
@@ -26,7 +26,7 @@ const MainPage = ({ userId, nickname }) => {
     };
 
     fetchUserPosts();
-  }, [userId]);
+  }, [loginId]);
 
   // 특정 게시글 조회
   const handleSelectPost = async (postId) => {
