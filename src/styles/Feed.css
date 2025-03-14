@@ -25,7 +25,15 @@
   background: #fff;
 }
 
-/* Right Container (MainPage와 동일하게 유지) */
+.feed-sidebar-font {
+  color: #946038;
+  margin: 20px;
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
 .right-container {
   display: flex;
   flex-direction: column;

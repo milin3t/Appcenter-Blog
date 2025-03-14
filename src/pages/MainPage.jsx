@@ -15,7 +15,9 @@ const MainPage = ({ userId, nickname }) => {
     const fetchUserPosts = async () => {
       try {
         const response = await axios.get(
-          `/api/contents/category?userId=${userId}`
+          `${
+            import.meta.env.VITE_API_BASE_URL
+          }/api/contents/category?userId=${userId}`
         );
         setPosts(response.data.response || []);
       } catch (error) {
@@ -29,7 +31,9 @@ const MainPage = ({ userId, nickname }) => {
   // 특정 게시글 조회
   const handleSelectPost = async (postId) => {
     try {
-      const response = await axios.get(`/api/contents/${postId}`);
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_BASE_URL}/api/contents/${postId}`
+      );
       setSelectedPost(response.data.response);
     } catch (error) {
       console.error("게시글을 불러오는 데 실패했습니다.", error);
@@ -40,7 +44,6 @@ const MainPage = ({ userId, nickname }) => {
   const handleLogout = () => navigate("/");
   const handleEditUser = () => navigate("/edit-user");
   const handleNewPost = () => navigate("/posting");
-  const handleToFeed = () => navigate("/feed");
 
   return (
     <div className="mainpage-container">
@@ -48,9 +51,7 @@ const MainPage = ({ userId, nickname }) => {
         <div className="profile-box">
           <div className="profile-info">
             <div className="profile-image-placeholder"></div>
-            <p className="nickname">
-              {nickname ? `${nickname}님, 환영합니다.` : "null님, 환영합니다."}
-            </p>
+            <p className="nickname">{nickname || "null"}님, 환영합니다.</p>
           </div>
           <div className="profile-actions">
             <span className="logout-btn" onClick={handleLogout}>
@@ -66,10 +67,8 @@ const MainPage = ({ userId, nickname }) => {
 
       <div className="right-container">
         <div className="header-box">
-          <button className="header-button" onClick={handleToFeed}>
-            친구 목록
-          </button>
-          <button className="header-button" onClick={handleToFeed}>
+          <button className="header-button">친구 목록</button>
+          <button className="header-button" onClick={() => navigate("/feed")}>
             둘러보기
           </button>
           <button className="header-button" onClick={handleNewPost}>

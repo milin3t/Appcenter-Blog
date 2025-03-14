@@ -2,50 +2,37 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../styles/PostView.css";
 
-const PostView = ({ selectedPost }) => {
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
+const PostView = ({ post }) => {
+  const [postDetails, setPostDetails] = useState(null);
 
   useEffect(() => {
-    if (!selectedPost) return;
+    if (post) {
+      const fetchPostDetails = async () => {
+        try {
+          const response = await axios.get(
+            `${import.meta.env.VITE_API_BASE_URL}/api/contents/${post.postId}`
+          );
+          setPostDetails(response.data.response);
+        } catch (error) {
+          console.error("게시글을 불러오는 데 실패했습니다.", error);
+        }
+      };
 
-    const fetchPostDetails = async () => {
-      try {
-        const response = await axios.get(
-          `/api/contents/${selectedPost.postId}`
-        );
-        setPost(response.data.response);
-      } catch (error) {
-        console.error("게시글 정보를 불러오는 데 실패했습니다.", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      fetchPostDetails();
+    }
+  }, [post]);
 
-    fetchPostDetails();
-  }, [selectedPost]);
-
-  if (!selectedPost) {
-    return (
-      <div className="post-view">
-        <p className="no-post-message">불러올 글이 없습니다!</p>
-      </div>
-    );
+  if (!postDetails) {
+    return <div className="post-placeholder">불러올 글이 없습니다!</div>;
   }
 
   return (
     <div className="post-view">
-      {loading ? (
-        <p className="loading-message">불러오는 중...</p>
-      ) : (
-        <>
-          <h2 className="post-title">{post.title}</h2>
-          <p className="post-meta">
-            작성자: {post.nickname} | 작성 시간: {post.postTime}
-          </p>
-          <div className="post-content">{post.contents}</div>
-        </>
-      )}
+      <h2 className="post-title">{postDetails.title}</h2>
+      <p className="post-author">
+        작성자: {postDetails.nickname} | 작성 시간: {postDetails.postTime}
+      </p>
+      <div className="post-content">{postDetails.contents}</div>
     </div>
   );
 };

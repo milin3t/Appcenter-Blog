@@ -5,7 +5,6 @@ import axios from "axios";
 
 const EditUser = ({ userId }) => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState("null"); // 닉네임 기본값 "null"
   const [form, setForm] = useState({
     nickname: "",
     address: "",
@@ -14,42 +13,35 @@ const EditUser = ({ userId }) => {
     introduce: "",
   });
 
-  // ✅ 유저 정보 불러오기 (GET 요청)
+  // 유저 정보 불러오기
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await axios.get(`/api/members/${userId}`);
-        const userData = response.data.response;
-
-        setNickname(userData.nickname || "null"); // 닉네임이 없으면 "null"
-        setForm({
-          nickname: userData.nickname || "",
-          address: userData.address || "",
-          birth: userData.birth || "",
-          phone: userData.phone || "",
-          introduce: userData.introduce || "",
-        });
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_BASE_URL}/api/members/${userId}`
+        );
+        setForm(response.data.response);
       } catch (error) {
-        console.error("사용자 정보를 불러오는 데 실패했습니다.", error);
+        console.error("유저 정보를 불러오는 데 실패했습니다.", error);
       }
     };
 
     fetchUserData();
   }, [userId]);
 
-  // ✅ 입력 값 변경 핸들러
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ✅ 사용자 정보 업데이트 (PUT 요청)
-  const handleUpdateUser = async () => {
+  const handleUpdate = async () => {
     try {
-      await axios.put(`/api/members/${userId}`, form);
+      await axios.put(
+        `${import.meta.env.VITE_API_BASE_URL}/api/members/${userId}`,
+        form
+      );
       navigate("/main"); // 성공 시 메인 페이지로 이동
     } catch (error) {
-      console.error("사용자 정보 업데이트 실패", error);
-      alert("업데이트에 실패했습니다.");
+      console.error("회원 정보 수정에 실패했습니다.", error);
     }
   };
 
@@ -58,7 +50,7 @@ const EditUser = ({ userId }) => {
       <div className="edit-user-box">
         <div className="profile-section">
           <div className="profile-image-placeholder"></div>
-          <p className="nickname">{nickname}</p>
+          <p className="nickname">{form.nickname || "null"}</p>
           <span className="edit-profile-text">프로필 사진 수정하기</span>
         </div>
 
@@ -119,7 +111,7 @@ const EditUser = ({ userId }) => {
         </div>
 
         <div className="edit-buttons">
-          <button className="edit-apply-button" onClick={handleUpdateUser}>
+          <button className="edit-apply-button" onClick={handleUpdate}>
             적용
           </button>
           <button
