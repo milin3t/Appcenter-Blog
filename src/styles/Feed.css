@@ -9,12 +9,12 @@
   gap: 40px; /* 좌우 간격 */
 }
 
-/* Left Container (하얀색 박스 하나) */
+/* 왼쪽 유저 목록 */
 .left-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 320px; /* 기존 MainPage의 left-container와 동일한 크기 */
+  width: 320px;
 }
 
 .feed-sidebar-box {
@@ -23,6 +23,8 @@
   flex-shrink: 0;
   border-radius: 15px;
   background: #fff;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 .feed-sidebar-font {
@@ -34,6 +36,38 @@
   line-height: normal;
 }
 
+/* 유저 리스트 */
+.user-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.user-item {
+  padding: 10px;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+}
+
+.user-item:hover {
+  background: #f4f4f4;
+}
+
+.selected {
+  font-weight: bold;
+  color: #946038;
+}
+
+.no-users,
+.select-user-msg {
+  text-align: center;
+  font-size: 16px;
+  color: #888;
+}
+
+/* 오른쪽 콘텐츠 */
 .right-container {
   display: flex;
   flex-direction: column;
@@ -54,10 +88,32 @@
   background: #fff;
 }
 
+.header-button {
+  border: none;
+  background: none;
+  font-weight: 600;
+  font-size: 18px;
+  cursor: pointer;
+  color: #7a4d2a;
+}
+
+.header-button:hover {
+  color: black;
+}
+
+/* 게시글 박스 */
 .post-box {
   width: 100%;
   height: 715px;
   flex-shrink: 0;
   border-radius: 15px;
   background: #fff;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.no-posts-main {
+  text-align: center;
+  font-size: 18px;
+  color: #888;
 }

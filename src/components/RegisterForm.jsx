@@ -4,6 +4,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "../styles/Register.css";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 const RegisterForm = () => {
   const navigate = useNavigate();
   const [form, setForm] = useState({
@@ -12,9 +14,6 @@ const RegisterForm = () => {
     confirmPassword: "",
     nickname: "",
   });
-
-  const API_BASE_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -60,23 +59,22 @@ const RegisterForm = () => {
     if (!validateForm()) return;
 
     try {
-      const response = await axios.post(`${API_BASE_URL}/api/members/signup`, {
+      const { data } = await axios.post(`${API_BASE_URL}/api/members/signup`, {
         loginId: form.username,
         password: form.password,
         nickname: form.nickname,
       });
 
-      if (response.status === 201) {
-        toast.success("회원가입 성공!", {
-          position: "top-center",
-          autoClose: 3000,
-        });
-        setTimeout(() => navigate("/register-success"), 1000);
-      }
+      if (!data.userId) throw new Error("회원가입 실패: 응답 데이터 없음");
+
+      navigate("/register-success");
     } catch (err) {
       const errorMessage =
-        err.response?.data?.message || "회원가입 실패했습니다.";
-      toast.error(errorMessage, { position: "top-center", autoClose: 3000 });
+        err.response?.data?.message || "회원가입에 실패했습니다.";
+      toast.error(errorMessage, {
+        position: "top-center",
+        autoClose: 3000,
+      });
     }
   };
 
