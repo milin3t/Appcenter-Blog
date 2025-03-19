@@ -11,9 +11,8 @@ const PostPage = () => {
   const { user } = useAuth();
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const [isMain, setIsMain] = useState(false);
+  const [main, setMain] = useState(false);
 
-  // 🔹 게시글 작성 요청 (POST)
   const handlePost = async () => {
     if (!title.trim() || !contents.trim()) {
       alert("제목과 내용을 입력해주세요!");
@@ -21,16 +20,14 @@ const PostPage = () => {
     }
 
     try {
-      console.log("test= 현재 로그인된 유저 정보:", user);
       const response = await axios.post(
         `${API_BASE_URL}/api/contents?userId=${user.userId}`,
         {
           title,
           contents,
-          isMain,
+          main,
         }
       );
-
       console.log("게시글 작성 성공", response.data);
       navigate("/main");
     } catch (error) {
@@ -59,8 +56,8 @@ const PostPage = () => {
         <label className="main-post-checkbox">
           <input
             type="checkbox"
-            checked={isMain}
-            onChange={(e) => setIsMain(e.target.checked)}
+            checked={main}
+            onChange={(e) => setMain(e.target.checked)}
           />
           대표 글로 설정하기
         </label>
