@@ -19,11 +19,10 @@ const Sidebar = ({ onSelectPost }) => {
         const response = await axios.get(
           `${API_BASE_URL}/api/contents/category?userId=${user.userId}`
         );
-
-        console.log("✅ API 응답 데이터:", response.data);
-        setPosts(response.data || []);
+        const sortedPosts = response.data.sort((a, b) => b.postId - a.postId);
+        setPosts(sortedPosts || []);
       } catch (error) {
-        console.error("❌ 게시글을 불러오는 데 실패했습니다.", error);
+        console.error("게시글을 불러오는 데 실패했습니다.", error);
         setError("게시글을 불러오는 데 실패했습니다.");
       } finally {
         setLoading(false);

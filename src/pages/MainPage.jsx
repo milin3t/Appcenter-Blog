@@ -5,13 +5,18 @@ import { useAuth } from "../context/AuthContext";
 import "../styles/Main.css";
 import Sidebar from "../components/Sidebar";
 import PostView from "../components/PostView";
+import Friends from "../components/Friends";
+import profile from "../assets/profile.png";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const MainPage = () => {
   const { user, logout } = useAuth();
   const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedPostId, setSelectedPostId] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [users, setUsers] = useState([]); // 전체 유저 목록
+  const [showFriends, setShowFriends] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +26,7 @@ const MainPage = () => {
         const response = await axios.get(
           `${API_BASE_URL}/api/contents/category?userId=${user.userId}`
         );
-        setPosts(response.data.response || []);
+        setPosts(response.data || []);
       } catch (error) {
         console.error("게시글 목록을 불러오는 데 실패했습니다.", error);
       }
@@ -35,16 +40,31 @@ const MainPage = () => {
       const response = await axios.get(
         `${API_BASE_URL}/api/contents/${postId}`
       );
-      setSelectedPost(response.data.response);
+      setSelectedPost(response.data);
+      setSelectedPostId(postId);
     } catch (error) {
       console.error("게시글을 불러오는 데 실패했습니다.", error);
     }
   };
 
-  // 로그아웃 후 로그인 페이지로 이동
   const handleLogout = () => {
-    logout(); // AuthContext의 logout 함수 실행
-    navigate("/"); // 로그인 페이지로 이동
+    logout();
+    navigate("/");
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get(`${API_BASE_URL}/api/members`);
+      setUsers(response.data || []);
+      console.log(response.data);
+    } catch (error) {
+      console.error("사용자 목록을 불러오는 데 실패했습니다.", error);
+    }
+  };
+
+  const handleShowFriends = () => {
+    setShowFriends(true);
+    fetchUsers();
   };
 
   return (
@@ -52,7 +72,12 @@ const MainPage = () => {
       <div className="left-container">
         <div className="profile-box">
           <div className="profile-info">
-            <div className="profile-image-placeholder"></div>
+            <div className="profile-image-placeholder">
+              <img
+                src={profile}
+                style={{ width: "180px", height: "180px", borderRadius: "50%" }}
+              ></img>
+            </div>
             <p className="nickname">
               {user.nickname ? `${user.nickname}님, 환영합니다.` : "null님"}
             </p>
@@ -71,10 +96,7 @@ const MainPage = () => {
 
       <div className="right-container">
         <div className="header-box">
-          <button
-            className="header-button"
-            onClick={() => navigate("/friends")}
-          >
+          <button className="header-button" onClick={handleShowFriends}>
             친구 목록
           </button>
           <button className="header-button" onClick={() => navigate("/feed")}>
@@ -88,7 +110,9 @@ const MainPage = () => {
           </button>
         </div>
         <div className="post-box">
-          {posts.length === 0 ? (
+          {showFriends ? (
+            <Friends users={users} />
+          ) : posts.length === 0 ? (
             <div className="no-posts-main">
               <p>불러올 글이 없습니다!</p>
               <button
@@ -99,7 +123,7 @@ const MainPage = () => {
               </button>
             </div>
           ) : (
-            <PostView post={selectedPost} />
+            <PostView post={selectedPost} postId={selectedPostId} />
           )}
         </div>
       </div>

@@ -1,8 +1,7 @@
-// src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import Login from "./pages/Login";
+import LoginForm from "./components/LoginForm";
 import MainPage from "./pages/MainPage";
 import RegisterForm from "./components/RegisterForm";
 import RegisterSuccess from "./components/RegisterSuccess";
@@ -16,7 +15,7 @@ const App = () => {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Login />} />
+          <Route path="/" element={<LoginForm />} />
           <Route path="/signup" element={<RegisterForm />} />
           <Route path="/register-success" element={<RegisterSuccess />} />
           <Route path="/main" element={<MainPage />} />

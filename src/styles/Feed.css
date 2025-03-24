@@ -1,3 +1,4 @@
+/* 전체 컨테이너 */
 .feed-container {
   display: flex;
   justify-content: center;
@@ -6,7 +7,7 @@
   height: 100vh;
   padding: 20px;
   background-color: #946038;
-  gap: 40px; /* 좌우 간격 */
+  gap: 40px;
 }
 
 /* 왼쪽 유저 목록 */
@@ -19,7 +20,7 @@
 
 .feed-sidebar-box {
   width: 314px;
-  height: 793px;
+  height: 750px;
   flex-shrink: 0;
   border-radius: 15px;
   background: #fff;
@@ -27,44 +28,54 @@
   overflow-y: auto;
 }
 
+/* Friends List 타이틀 */
 .feed-sidebar-font {
   color: #946038;
   margin: 20px;
-  font-size: 40px;
-  font-style: normal;
+  font-size: 42px;
   font-weight: 700;
-  line-height: normal;
+  text-align: left;
 }
 
-/* 유저 리스트 */
+/* 유저 리스트 스타일 */
 .user-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
+/* 유저 개별 아이템 */
 .user-item {
-  padding: 10px;
-  font-size: 16px;
-  text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px;
   cursor: pointer;
-  border-bottom: 1px solid #ddd;
+  border-radius: 10px;
+  transition: background 0.3s ease-in-out;
 }
 
 .user-item:hover {
-  background: #f4f4f4;
+  background: rgba(148, 96, 56, 0.15);
 }
 
-.selected {
+.user-item.selected {
+  background: rgba(148, 96, 56, 0.3);
+}
+
+/* 프로필 이미지 플레이스홀더 */
+.user-profile-placeholder {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: #d9d9d9;
+}
+
+/* 유저 닉네임 */
+.user-name {
+  font-size: 18px;
   font-weight: bold;
-  color: #946038;
-}
-
-.no-users,
-.select-user-msg {
-  text-align: center;
-  font-size: 16px;
-  color: #888;
+  color: #333;
 }
 
 /* 오른쪽 콘텐츠 */
@@ -76,6 +87,7 @@
   align-items: center;
 }
 
+/* 상단 네비게이션 버튼 */
 .header-box {
   display: flex;
   flex-direction: row;
