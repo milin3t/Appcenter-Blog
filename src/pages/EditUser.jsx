@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 import "../styles/EditUser.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const EditUser = ({ loginId }) => {
-  console.log(loginId);
+const EditUser = () => {
   const navigate = useNavigate();
+  const { user, login } = useAuth();
   const [form, setForm] = useState({
     nickname: "",
     address: "",
@@ -14,21 +15,20 @@ const EditUser = ({ loginId }) => {
     introduce: "",
   });
 
-  // 유저 정보 불러오기
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         const response = await axios.get(
-          `${import.meta.env.VITE_API_BASE_URL}/api/members/${loginId}`
+          `${import.meta.env.VITE_API_BASE_URL}/api/members/${user.userId}`
         );
-        setForm(response.data.response);
+        setForm(response.data);
       } catch (error) {
         console.error("유저 정보를 불러오는 데 실패했습니다.", error);
       }
     };
 
     fetchUserData();
-  }, [loginId]);
+  }, [user.userId]);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -36,16 +36,20 @@ const EditUser = ({ loginId }) => {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(
-        `${import.meta.env.VITE_API_BASE_URL}/api/members/${loginId}`,
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_BASE_URL}/api/members/${user.userId}`,
         form
       );
-      navigate("/main"); // 성공 시 메인 페이지로 이동
+
+      const updatedNickname = response.data.nickname;
+
+      login(user.userId, user.loginId, updatedNickname);
+
+      navigate("/main");
     } catch (error) {
       console.error("회원 정보 수정에 실패했습니다.", error);
     }
   };
-
   return (
     <div className="edit-user-container">
       <div className="edit-user-box">

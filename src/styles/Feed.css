@@ -1,4 +1,3 @@
-/* 전체 컨테이너 */
 .feed-container {
   display: flex;
   justify-content: center;
@@ -10,7 +9,6 @@
   gap: 40px;
 }
 
-/* 왼쪽 유저 목록 */
 .left-container {
   display: flex;
   justify-content: center;
@@ -28,7 +26,6 @@
   overflow-y: auto;
 }
 
-/* Friends List 타이틀 */
 .feed-sidebar-font {
   color: #946038;
   margin: 20px;
@@ -37,14 +34,12 @@
   text-align: left;
 }
 
-/* 유저 리스트 스타일 */
 .user-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-/* 유저 개별 아이템 */
 .user-item {
   display: flex;
   align-items: center;
@@ -63,7 +58,6 @@
   background: rgba(148, 96, 56, 0.3);
 }
 
-/* 프로필 이미지 플레이스홀더 */
 .user-profile-placeholder {
   width: 70px;
   height: 70px;
@@ -71,14 +65,12 @@
   background: #d9d9d9;
 }
 
-/* 유저 닉네임 */
 .user-name {
   font-size: 18px;
   font-weight: bold;
   color: #333;
 }
 
-/* 오른쪽 콘텐츠 */
 .right-container {
   display: flex;
   flex-direction: column;
@@ -87,7 +79,6 @@
   align-items: center;
 }
 
-/* 상단 네비게이션 버튼 */
 .header-box {
   display: flex;
   flex-direction: row;
@@ -113,7 +104,6 @@
   color: black;
 }
 
-/* 게시글 박스 */
 .post-box {
   width: 100%;
   height: 715px;
@@ -122,6 +112,47 @@
   background: #fff;
   padding: 20px;
   overflow-y: auto;
+}
+
+.post-preview {
+  cursor: pointer;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.post-preview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.preview-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #111;
+}
+
+.preview-date {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.preview-author {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 5px;
+}
+
+.preview-content {
+  font-size: 16px;
+  color: #333;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .no-posts-main {

@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
 import "../styles/Post.css";
@@ -9,9 +9,31 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const PostPage = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
+  const location = useLocation();
+  const postId = location.state?.postId; // 수정일 경우 존재함
+
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [main, setMain] = useState(false);
+
+  useEffect(() => {
+    if (postId) {
+      const fetchPost = async () => {
+        try {
+          const response = await axios.get(
+            `${API_BASE_URL}/api/contents/${postId}`
+          );
+          const post = response.data;
+          setTitle(post.title);
+          setContents(post.contents);
+          setMain(post.isMain);
+        } catch (error) {
+          console.error("게시글 불러오기 실패", error);
+        }
+      };
+      fetchPost();
+    }
+  }, [postId]);
 
   const handlePost = async () => {
     if (!title.trim() || !contents.trim()) {
@@ -20,19 +42,24 @@ const PostPage = () => {
     }
 
     try {
-      const response = await axios.post(
-        `${API_BASE_URL}/api/contents?userId=${user.userId}`,
-        {
+      if (postId) {
+        await axios.put(`${API_BASE_URL}/api/contents/${postId}`, {
           title,
           contents,
           main,
-        }
-      );
-      console.log("게시글 작성 성공", response.data);
+        });
+      } else {
+        await axios.post(`${API_BASE_URL}/api/contents?userId=${user.userId}`, {
+          title,
+          contents,
+          main,
+        });
+      }
+
       navigate("/main");
     } catch (error) {
-      console.error("게시글 작성 실패", error);
-      alert("게시글 작성에 실패했습니다.");
+      console.error("게시글 작성/수정 실패", error);
+      alert("게시글 처리 중 오류가 발생했습니다.");
     }
   };
 
@@ -64,7 +91,7 @@ const PostPage = () => {
 
         <div className="post-buttons">
           <button className="post-button submit-btn" onClick={handlePost}>
-            게시
+            {postId ? "수정" : "게시"}
           </button>
           <button
             className="post-button cancel-btn"

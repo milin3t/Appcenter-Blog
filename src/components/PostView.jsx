@@ -8,7 +8,7 @@ import "../styles/PostView.css";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-const PostView = ({ post, postId }) => {
+const PostView = ({ post, postId, editable = true }) => {
   const navigate = useNavigate();
 
   if (!post) {
@@ -39,20 +39,22 @@ const PostView = ({ post, postId }) => {
     <div className="post-view">
       <ToastContainer />
       <div className="post-title">{post.title}</div>
-      <hr></hr>
+      <hr />
       <div className="post-details">
         작성자 : {post.nickname} | 작성 시간 : {post.postTime} | 대표글 여부 :{" "}
         {post.isMain ? "O" : "X"}
       </div>
-      <hr></hr>
-      <div className="button-container">
-        <button className="text-button" onClick={handleEdit}>
-          수정
-        </button>
-        <button className="text-button" onClick={handleDelete}>
-          삭제
-        </button>
-      </div>
+      <hr />
+      {editable && (
+        <div className="button-container">
+          <button className="text-button" onClick={handleEdit}>
+            수정
+          </button>
+          <button className="text-button" onClick={handleDelete}>
+            삭제
+          </button>
+        </div>
+      )}
       <div className="post-contents">{post.contents}</div>
     </div>
   );
@@ -66,7 +68,8 @@ PostView.propTypes = {
     postTime: PropTypes.string,
     isMain: PropTypes.bool,
   }),
-  postId: PropTypes.number.isRequired,
+  postId: PropTypes.number,
+  editable: PropTypes.bool,
 };
 
 export default PostView;

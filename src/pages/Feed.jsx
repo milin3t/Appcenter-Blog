@@ -7,17 +7,17 @@ import "../styles/Feed.css";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const Feed = () => {
-  const [users, setUsers] = useState([]); // 전체 유저 목록
-  const [selectedUser, setSelectedUser] = useState(null); // 선택한 유저 정보
-  const [posts, setPosts] = useState([]); // 선택한 유저의 게시글 목록
-  const [selectedPost, setSelectedPost] = useState(null); // 클릭한 게시글
+  const [users, setUsers] = useState([]);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [posts, setPosts] = useState([]);
+  const [selectedPost, setSelectedPost] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(`${API_BASE_URL}/api/members`);
-        setUsers(response.data || []); // 응답 데이터를 유저 목록으로 설정
+        setUsers(response.data || []);
       } catch (error) {
         console.error("사용자 목록을 불러오는 데 실패했습니다.", error);
       }
@@ -31,9 +31,9 @@ const Feed = () => {
       const response = await axios.get(
         `${API_BASE_URL}/api/contents/category?userId=${userId}`
       );
-      setPosts(response.data || []);
+      setPosts((response.data || []).sort((a, b) => b.postId - a.postId)); // 최신순 정렬
       setSelectedUser(userId);
-      setSelectedPost(null); // 새로운 유저 선택 시, 게시글 초기화
+      setSelectedPost(null);
     } catch (error) {
       console.error("게시글을 불러오는 데 실패했습니다.", error);
     }
@@ -41,7 +41,6 @@ const Feed = () => {
 
   return (
     <div className="feed-container">
-      {/* 왼쪽 사이드바 - 유저 목록 */}
       <div className="left-container">
         <div className="feed-sidebar-box">
           <h2 className="feed-sidebar-font">
@@ -66,7 +65,6 @@ const Feed = () => {
         </div>
       </div>
 
-      {/* 오른쪽 콘텐츠 영역 */}
       <div className="right-container">
         <div className="header-box">
           <button className="header-button" onClick={() => navigate("/main")}>
@@ -88,10 +86,15 @@ const Feed = () => {
                 posts.map((post) => (
                   <div
                     key={post.postId}
-                    className="post-item"
+                    className="post-preview"
                     onClick={() => setSelectedPost(post)}
                   >
-                    {post.title}
+                    <div className="post-preview-header">
+                      <h2 className="preview-title">{post.title}</h2>
+                      <span className="preview-date">{post.postTime}</span>
+                    </div>
+                    <p className="preview-author">by. {post.nickname}</p>
+                    <p className="preview-content">{post.contents}</p>
                   </div>
                 ))
               ) : (
@@ -101,7 +104,7 @@ const Feed = () => {
               <p className="no-posts">유저를 선택해주세요.</p>
             )
           ) : (
-            <PostView post={selectedPost} />
+            <PostView post={selectedPost} editable={false} />
           )}
         </div>
       </div>

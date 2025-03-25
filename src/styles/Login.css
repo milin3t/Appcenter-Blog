@@ -1,6 +1,30 @@
-/* src/styles/Login.css */
+/* 패스워드 보이기 토글처리 부분 */
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+}
 
-/* 로그인 박스 */
+.password-input {
+  width: 378px;
+  margin-bottom: 20px;
+  border: none;
+  border-bottom: 1px solid #000;
+  font-size: 16px;
+  outline: none;
+  background: transparent;
+  text-align: left;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: gray;
+  font-size: 18px;
+}
+
 .login-box {
   width: 466px;
   height: 793px;
@@ -11,7 +35,6 @@
   flex-direction: column;
 }
 
-/* 로그인 제목 */
 .login-title-1 {
   font-size: 38px;
   font-weight: 200;
@@ -26,7 +49,7 @@
   margin-bottom: 60px;
 }
 
-/* 입력 필드 */
+/* 입력 필드  ====>  재앙의 원인. 나중에 리팩토링하면 얘 지우고 각 인풋태그에 클래스네임을 부여해서 수정하도록 하자 */
 input {
   width: 378px;
   margin-top: 30px;
@@ -40,7 +63,6 @@ input {
   align-items: center;
 }
 
-/* 로그인 버튼 */
 .login-button {
   width: 378px;
   height: 48px;
@@ -61,7 +83,6 @@ input {
   background: #7a4d2a;
 }
 
-/* 회원가입 링크 */
 .signup-prompt {
   margin-left: 275px;
   margin-top: 80px;
@@ -78,6 +99,7 @@ input {
   font-weight: bold;
   text-decoration: underline;
 }
+
 .signup-link:hover {
   color: #7a4d2a;
 }

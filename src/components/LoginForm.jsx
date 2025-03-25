@@ -1,11 +1,10 @@
-// Completed: Yes
-
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../styles/Login.css";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -13,6 +12,7 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 const LoginForm = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
 
@@ -59,13 +59,22 @@ const LoginForm = () => {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <div className="password-input-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              className="password-input"
+            />
+            <span
+              className="password-toggle-icon"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
           <button type="submit" className="login-button">
             LOGIN
           </button>

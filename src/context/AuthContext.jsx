@@ -1,3 +1,4 @@
+// src/context/AuthContext.jsx
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 export const AuthContext = createContext();
@@ -9,11 +10,14 @@ export const AuthProvider = ({ children }) => {
     nickname: null,
   });
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
+    setIsLoading(false);
   }, []);
 
   const login = (userId, loginId, nickname) => {
@@ -28,7 +32,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

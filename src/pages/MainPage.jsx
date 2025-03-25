@@ -56,7 +56,6 @@ const MainPage = () => {
     try {
       const response = await axios.get(`${API_BASE_URL}/api/members`);
       setUsers(response.data || []);
-      console.log(response.data);
     } catch (error) {
       console.error("사용자 목록을 불러오는 데 실패했습니다.", error);
     }

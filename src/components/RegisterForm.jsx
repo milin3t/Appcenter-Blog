@@ -1,8 +1,7 @@
-// Completed: Yes
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "../styles/Register.css";
 import axios from "axios";
 
@@ -16,6 +15,9 @@ const RegisterForm = () => {
     confirmPassword: "",
     nickname: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -93,22 +95,41 @@ const RegisterForm = () => {
             value={form.username}
             onChange={handleChange}
           />
-          <input
-            type="password"
-            name="password"
-            placeholder="비밀번호를 입력해주세요"
-            className="register-input"
-            value={form.password}
-            onChange={handleChange}
-          />
-          <input
-            type="password"
-            name="confirmPassword"
-            placeholder="비밀번호를 다시 입력해주세요"
-            className="register-input"
-            value={form.confirmPassword}
-            onChange={handleChange}
-          />
+
+          <div className="password-input-wrapper">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              placeholder="비밀번호를 입력해주세요"
+              className="register-input"
+              value={form.password}
+              onChange={handleChange}
+            />
+            <span
+              className="password-toggle"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
+          <div className="password-input-wrapper">
+            <input
+              type={showConfirm ? "text" : "password"}
+              name="confirmPassword"
+              placeholder="비밀번호를 다시 입력해주세요"
+              className="register-input"
+              value={form.confirmPassword}
+              onChange={handleChange}
+            />
+            <span
+              className="password-toggle"
+              onClick={() => setShowConfirm(!showConfirm)}
+            >
+              {showConfirm ? <FaEyeSlash /> : <FaEye />}
+            </span>
+          </div>
+
           <input
             type="text"
             name="nickname"
@@ -117,6 +138,7 @@ const RegisterForm = () => {
             value={form.nickname}
             onChange={handleChange}
           />
+
           <button type="submit" className="register-button">
             가입
           </button>
